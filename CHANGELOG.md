@@ -1,6 +1,6 @@
 # Changelog
 
-All notable custom changes in this private snapshot are recorded here. Format follows Keep a Changelog; versioning remains tied to upstream 9Router releases.
+All notable custom changes in this public snapshot are recorded here. Format follows Keep a Changelog; versioning remains tied to upstream 9Router releases.
 
 ## [Unreleased] - 2026-09-24
 
@@ -47,7 +47,7 @@ All notable custom changes in this private snapshot are recorded here. Format fo
 
 ### Security and Privacy
 
-- This repository is intended to remain private.
+- This repository is public.
 - The backup uses a fresh sanitized snapshot instead of importing upstream Git history because the old history contains browser profile data that may include cookies and session state.
-- The snapshot excludes `.env`, runtime databases, browser profiles, cookies, session state, key material, and credentials.
+- The snapshot excludes `.env`, runtime databases, browser profiles, cookies, session state, local key material, and Boss's runtime credentials.
 - Upstream OAuth client credentials (Gemini CLI, iFlow, Antigravity) are retained by owner decision; they are upstream application credentials, not runtime user credentials.

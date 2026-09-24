@@ -133,7 +133,7 @@ Browse all skills in the Dashboard → Skills page or in the [`skills/`](./skill
 
 ## Custom Changes
 
-This version contains local patches for the VPS deployment, maintained by Nareida. The following changes were made on top of the 9Router v2 source and are backed up to this private snapshot.
+This version contains local patches for the VPS deployment, maintained by Nareida. The following changes were made on top of the 9Router v2 source and are backed up to this public snapshot.
 
 ### Upstream context metadata
 
@@ -165,7 +165,7 @@ This version contains local patches for the VPS deployment, maintained by Nareid
 
 ### Repository and privacy
 
-- This snapshot contains no `.env`, runtime databases, browser profiles, cookies, session state, key material, or credentials.
+- This repository is public. Upstream OAuth client credentials (Gemini CLI, iFlow, and Antigravity) remain part of the upstream source; they are not Boss's runtime API keys, OAuth tokens, or database credentials.
 - This README contains no tokens or secrets.
 
 ---
