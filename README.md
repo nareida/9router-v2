@@ -133,40 +133,40 @@ Browse all skills in the Dashboard → Skills page or in the [`skills/`](./skill
 
 ## Custom Changes
 
-Versi ini berisi patch lokal Jarvis untuk deployment VPS. Perubahan berikut dibuat di atas source 9Router v2 dan ikut dibackup ke snapshot private baru.
+This version contains local patches for the VPS deployment, maintained by Nareida. The following changes were made on top of the 9Router v2 source and are backed up to this private snapshot.
 
 ### Upstream context metadata
 
-- `/v1/models` kini menambahkan `context_length` untuk model LLM yang tersedia.
-- Metadata diambil dari katalog model provider: OpenRouter, Groq, dan custom OpenAI-compatible nodes.
-- Katalog provider disimpan di cache SQLite selama 24 jam; cache lama tetap dipakai bila refresh upstream gagal.
-- Combo-reported context memakai nilai terbesar di antara model anggotanya. Ini bukan jaminan semua fallback bisa menerima prompt sebesar nilai tersebut; model dengan window lebih kecil tetap bisa menolak atau dilewati.
-- Provider yang tidak mengirim metadata context tidak mendapat field `context_length`; 9router tidak memakai angka hardcoded.
+- `/v1/models` now adds `context_length` for available LLM models.
+- Metadata is fetched from provider model catalogs: OpenRouter, Groq, and custom OpenAI-compatible nodes.
+- Provider catalogs are cached in SQLite for 24 hours; stale cache is served when an upstream refresh fails.
+- Combo-reported context uses the largest value among its member models. This is not a guarantee that every fallback can accept a prompt of that size; models with smaller windows may still reject or be skipped.
+- Providers that do not publish context metadata get no `context_length` field; no hardcoded fallback is used.
 
 ### Soul mode
 
-- OpenAI-compatible provider dengan `soulMode: true` memindahkan system message client ke awal user message sebagai identity override.
-- Tujuannya mencegah persona default upstream menggantikan SYSTEM/AGENTS prompt yang dikirim client.
-- Node baru mewarisi `soulMode` dari provider node. Connection yang sudah ada perlu mengaktifkan flag pada data connection/provider-specific data.
+- OpenAI-compatible providers with `soulMode: true` move the client's system message to the start of the first user message as an identity override.
+- The goal is to prevent upstream default personas from replacing the SYSTEM/AGENTS prompt sent by the client.
+- New connections inherit `soulMode` from the provider node. Existing connections need the flag enabled on their connection/provider-specific data.
 
-### Provider validation dan runtime fixes
+### Provider validation and runtime fixes
 
-- Validate endpoint memakai timeout/abort yang jelas dan tidak lagi membiarkan request menggantung.
-- Perbaikan import relatif pada sebagian modul Open-SSE/backend agar lebih kompatibel dengan `tsx`; theme/shared import tetap menjadi FIXME.
-- Backend menyajikan frontend static dari `/opt/data/9router-dist` dengan SPA fallback dan cache policy yang sesuai.
-- Auth middleware hanya diterapkan ke route API/LLM; route frontend tidak dialihkan ke auth.
+- Validation endpoints use explicit timeout/abort and no longer leave requests hanging.
+- Relative import fixes in several Open-SSE/backend modules for `tsx` compatibility; theme/shared imports remain a known FIXME.
+- The backend serves the static frontend from `/opt/data/9router-dist` with SPA fallback and appropriate cache policies.
+- The auth middleware only applies to API/LLM routes; frontend routes are not redirected to auth.
 
-### Verifikasi lokal
+### Local verification
 
-- `GET /v1/models` terverifikasi mengembalikan `context_length` untuk combo dan model yang katalognya tersedia.
-- `POST /v1/chat/completions` terverifikasi berhasil memakai combo.
-- Pemeriksaan `git diff --check` lulus.
-- Pemeriksaan theme/runtime imports dan TypeScript penuh belum dinyatakan lulus; snapshot upstream masih punya beberapa import/runtime dan type errors yang perlu diaudit terpisah.
+- `GET /v1/models` verified to return `context_length` for combos and models with available catalogs.
+- `POST /v1/chat/completions` verified working through a combo.
+- `git diff --check` passes.
+- Theme/runtime imports and the full TypeScript check are not claimed as passing; the upstream snapshot still contains several import/runtime and type errors that need a separate audit.
 
-### Repository dan Privasi
+### Repository and privacy
 
-- Snapshot ini dibuat tanpa `.env`, database runtime, browser profiles, cookies, session state, key material, dan credential.
-- README ini tidak memuat token atau secret.
+- This snapshot contains no `.env`, runtime databases, browser profiles, cookies, session state, key material, or credentials.
+- This README contains no tokens or secrets.
 
 ---
 
