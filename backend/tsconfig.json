@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "allowImportingTsExtensions": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "open-sse": ["./open-sse"],
+      "open-sse/*": ["./open-sse/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
